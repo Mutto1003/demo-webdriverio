@@ -1,5 +1,3 @@
-const path = require('path');
-
 export const config: WebdriverIO.Config = {
     //
     // ====================
@@ -10,6 +8,7 @@ export const config: WebdriverIO.Config = {
     tsConfigPath: './tsconfig.json',
     
     port: 4723,
+    path: '/',
     //
     // ==================
     // Specify Test Files
@@ -26,7 +25,7 @@ export const config: WebdriverIO.Config = {
     // of the config file unless it's absolute.
     //
     specs: [
-        './test/specs/**/*.ts'
+        './test/specs/**/sample.ts'
     ],
     // Patterns to exclude.
     exclude: [
@@ -62,13 +61,13 @@ export const config: WebdriverIO.Config = {
         // 'appium:platformVersion': '12.0',
         // 'appium:automationName': 'UiAutomator2'
 
-        // set device
-        'appium:platformName': 'Android',
-        'appium:platformVersion': '12.0',
-        'appium:deviceName': 'Pixel 4',
-        'appium:automationName': 'UIAutomator2',
-        // /Users/panithan/demo-webdriverio/app/Android/ApiDemos-debug.apk
-        'appium:app': path.join(process.cwd(), 'app/Android/ApiDemos-debug.apk'
+        // set device well
+        // "platformName": "Android",
+        // "appium:deviceName": "R58MB3NYXXK",
+        // "appium:platformVersion": "12",
+        // "appium:appActivity": "net.svvh.well.MainActivity",
+        // "appium:appPackage": "net.svvh.well",
+        // "appium:automationName": "UiAutomator2"
     }],
 
     //

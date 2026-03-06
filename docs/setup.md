@@ -1,6 +1,6 @@
-# Monorepo Setup Guide
+# Setup Guide
 
-This guide will help you set up the WebdriverIO Desktop & Mobile monorepo for development.
+This guide will help you set up the `demo-webdriverio` mobile E2E testing project.
 
 ## Prerequisites
 
@@ -11,352 +11,157 @@ Before you begin, ensure you have the following installed:
   node --version  # Should be v18.x or v20.x
   ```
 
-- **pnpm**: Version 10.27.0 or higher
+- **npm**: Comes with Node.js
   ```bash
-  npm install -g pnpm
-  pnpm --version  # Should be 10.27.0+
+  npm --version
   ```
 
-- **Git**: For version control
+- **Appium**: Version 2.x
   ```bash
-  git --version
+  npm install -g appium
+  appium --version
   ```
 
-## Initial Setup
+- **Appium Drivers**:
+  ```bash
+  # For Android
+  appium driver install uiautomator2
+
+  # For iOS
+  appium driver install xcuitest
+  ```
+
+- **Android Setup** (for Android testing):
+  - Android Studio + Android SDK
+  - A physical Android device or emulator
+  - `adb` in PATH
+  ```bash
+  adb devices  # Should list your device
+  ```
+
+- **iOS Setup** (for iOS testing, macOS only):
+  - Xcode + Command Line Tools
+  - A physical device or simulator
+
+## Installation
 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/webdriverio/desktop-mobile.git
-cd desktop-mobile
+git clone <repo-url>
+cd demo-webdriverio
 ```
 
 ### 2. Install Dependencies
 
 ```bash
-pnpm install
+npm install
 ```
 
-This will:
-- Install all root-level dependencies
-- Install dependencies for all packages
-- Link workspace packages together
-- Set up Git hooks with Husky
+## Project Structure
 
-### 3. Build All Packages
+```
+demo-webdriverio/
+├── config/
+│   ├── wdio.shared.conf.ts     # Shared base configuration
+│   ├── wdio.android.conf.ts    # Android-specific configuration
+│   └── wdio.ios.conf.ts        # iOS-specific configuration
+├── test/
+│   ├── specs/                  # Test spec files
+│   │   ├── sample.ts           # Sample mobile test
+│   │   └── test.e2e.ts         # Web E2E test (legacy)
+│   └── pageobjects/            # Page Object Models
+│       ├── page.ts             # Base page class
+│       ├── sample.page.ts      # Sample page (mobile)
+│       ├── login.page.ts       # Login page (web)
+│       └── secure.page.ts      # Secure page (web)
+├── locs/                       # Locators (selectors)
+│   ├── index.ts                # Locator loader (auto platform detect)
+│   ├── android/
+│   │   ├── index.ts            # Android locator aggregator
+│   │   └── sample.locs.ts      # Android selectors for sample screen
+│   └── ios/
+│       ├── index.ts            # iOS locator aggregator
+│       └── sample.locs.ts      # iOS selectors for sample screen
+├── utils/
+│   └── platform.ts             # Platform detection utility
+├── data-test/                  # Test data files
+├── i18n/                       # Internationalisation resources
+├── docs/                       # Documentation
+├── wdio.conf.ts                # Root WDIO configuration
+├── tsconfig.json
+└── package.json
+```
+
+## Running Tests
+
+### Android
+
+Ensure your Android device is connected and `adb devices` shows it, then:
 
 ```bash
-pnpm turbo build
+npm run wdio:android
 ```
 
-This builds all packages in the correct dependency order using Turborepo's intelligent caching.
+> The device name (`appium:deviceName`) in `config/wdio.android.conf.ts` must match your device's serial number from `adb devices`.
 
-### 4. Run Tests
+### iOS
+
+Ensure your iOS simulator or device is available, then:
 
 ```bash
-pnpm test
+npm run wdio:ios
 ```
 
-This runs tests for all packages and ensures everything is working correctly.
+> Update `appium:deviceName` and `appium:platformVersion` in `config/wdio.ios.conf.ts` to match your target device.
 
-## Development Workflow
-
-### Building Packages
+### Root Config (default)
 
 ```bash
-# Build all packages
-pnpm turbo build
-
-# Build a specific package
-pnpm --filter @wdio/electron-service build
-pnpm --filter @wdio/tauri-service build
-
-# Clean and rebuild
-pnpm clean
-pnpm turbo build
+npm run wdio
 ```
 
-### Running Tests
+## Configuration
 
-```bash
-# Run all tests
-pnpm test
+### Android — `config/wdio.android.conf.ts`
 
-# Run tests with coverage
-pnpm test:coverage
+Key caps to update:
 
-# Run tests for specific package
-pnpm --filter @wdio/electron-service test
+| Capability | Description |
+|---|---|
+| `appium:deviceName` | Serial number from `adb devices` |
+| `appium:platformVersion` | Android OS version e.g. `"12"` |
+| `appium:appPackage` | App package e.g. `net.svvh.well` |
+| `appium:appActivity` | Main activity e.g. `net.svvh.well.MainActivity` |
 
-# Run tests in watch mode
-pnpm --filter @wdio/electron-service vitest
-```
+### iOS — `config/wdio.ios.conf.ts`
 
-### Code Quality
-
-```bash
-# Lint all packages
-pnpm lint
-
-# Lint and auto-fix
-pnpm lint:fix
-
-# Format code
-pnpm format
-
-# Type check all packages
-pnpm typecheck
-```
-
-### Development Mode
-
-```bash
-# Watch mode for all packages
-pnpm dev
-
-# Watch mode for specific package
-pnpm --filter wdio-electron-service dev
-```
-
-## Monorepo Structure
-
-```
-desktop-mobile/
-├── .github/
-│   └── workflows/          # CI/CD workflows
-├── packages/               # All packages
-│   ├── electron-service/       # Electron WDIO service
-│   ├── tauri-service/          # Tauri WDIO service
-│   ├── tauri-plugin/           # Tauri v2 plugin (Rust + JS)
-│   ├── electron-cdp-bridge/    # Chrome DevTools Protocol bridge
-│   ├── native-utils/           # Cross-platform utilities
-│   ├── native-types/           # Shared TypeScript type definitions
-│   ├── native-spy/             # Spy utilities for mocking
-│   └── bundler/                # Build tooling
-├── fixtures/              # Test fixtures and example apps
-│   ├── e2e-apps/         # E2E test applications
-│   │   └── tauri/        # Tauri E2E app
-│   └── package-tests/     # Package test fixtures
-│       └── tauri-app/     # Tauri package test app
-├── examples/              # Example applications
-├── e2e/                  # E2E test scenarios
-├── docs/                 # Documentation
-├── scripts/              # Build and utility scripts
-├── types/                # Shared type definitions
-├── package.json          # Root package.json
-├── pnpm-workspace.yaml   # Workspace configuration
-├── turbo.json           # Turborepo configuration
-├── tsconfig.base.json   # Base TypeScript config
-└── vitest.config.ts     # Vitest configuration
-```
-
-## Working with Packages
-
-### Adding a New Package
-
-See [package-structure.md](./package-structure.md) for detailed guidelines.
-
-Quick steps:
-
-1. Create package directory: `packages/my-package/`
-2. Copy structure from `packages/electron-service/`
-3. Update `package.json` with your package details
-4. Implement your code in `src/`
-5. Add tests in `test/`
-6. Build: `pnpm --filter @wdio/my-package build` (use the `name` from package.json)
-7. Test: `pnpm --filter @wdio/my-package test`
-
-### Adding Dependencies
-
-```bash
-# Add dependency to specific package
-pnpm --filter @wdio/electron-service add some-package
-
-# Add dev dependency
-pnpm --filter @wdio/electron-service add -D some-dev-package
-
-# Add workspace dependency
-pnpm --filter @wdio/electron-service add @wdio/native-utils@workspace:*
-```
-
-### Using the Catalog
-
-Common dependencies are managed through pnpm's catalog feature in `pnpm-workspace.yaml`.
-
-To use a catalog dependency:
-
-```json
-{
-  "devDependencies": {
-    "typescript": "catalog:default",
-    "vitest": "catalog:default"
-  }
-}
-```
-
-## Turborepo Caching
-
-Turborepo caches task outputs to speed up subsequent runs.
-
-### Local Cache
-
-The local cache is stored in `.turbo/` and is automatically used.
-
-### Cache Management
-
-```bash
-# Clear Turborepo cache
-pnpm clean:cache
-
-# Force rebuild (bypass cache)
-pnpm turbo build --force
-```
-
-## Common Tasks
-
-### Clean Everything
-
-```bash
-# Clean all build artifacts and caches
-pnpm clean
-
-# Clean just the Turbo cache
-pnpm clean:cache
-```
-
-### Run CI Locally
-
-```bash
-# Run the same checks as CI
-pnpm lint
-pnpm typecheck
-pnpm test
-pnpm turbo build
-```
-
-### Update Dependencies
-
-```bash
-# Update all dependencies
-pnpm update -r -i --latest
-
-# Update specific package
-pnpm --filter @wdio/electron-service update some-package
-```
+| Capability | Description |
+|---|---|
+| `appium:deviceName` | Device or simulator name e.g. `"iPhone 15 Pro"` |
+| `appium:platformVersion` | iOS version e.g. `"17.0"` |
+| `appium:bundleId` | App bundle ID e.g. `net.svvh.well` |
 
 ## Troubleshooting
 
-### "Cannot find module" errors
+### Appium server not starting
 
-Try cleaning and reinstalling:
-
-```bash
-pnpm clean
-pnpm install
-pnpm turbo build
-```
-
-### TypeScript errors after adding dependencies
-
-Rebuild the project:
+Check that Appium is installed and the correct driver is available:
 
 ```bash
-pnpm turbo build --force
+appium driver list --installed
 ```
 
-### Test failures
-
-Make sure packages are built:
+### Device not found
 
 ```bash
-pnpm turbo build
-pnpm test
+# Android
+adb devices
+
+# iOS — list simulators
+xcrun simctl list devices
 ```
 
-### Pre-commit hooks not running
+### Cannot connect to device
 
-Reinstall Husky:
-
-```bash
-pnpm prepare
-```
-
-## IDE Setup
-
-### VS Code
-
-Recommended extensions:
-
-- **ESLint**: Microsoft ESLint extension
-- **Biome**: Biome formatter
-- **TypeScript and JavaScript Language Features**: Built-in
-
-Workspace settings (`.vscode/settings.json`):
-
-```json
-{
-  "editor.formatOnSave": true,
-  "editor.defaultFormatter": "biomejs.biome",
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true,
-    "source.organizeImports": true
-  }
-}
-```
-
-## Platform-Specific Setup
-
-### Tauri Development
-
-For working with Tauri packages and plugins:
-
-1. **Install Rust** (if not already installed):
-   ```bash
-   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-   ```
-
-2. **Install Tauri CLI**:
-   ```bash
-   cargo install tauri-cli
-   # or
-   npm install -g @tauri-apps/cli
-   ```
-
-3. **Build Tauri Plugin**:
-   ```bash
-   cd packages/tauri-plugin
-   cargo build
-   ```
-
-4. **Build Tauri Test Apps**:
-   ```bash
-   cd fixtures/e2e-apps/tauri
-   pnpm tauri build
-   ```
-
-See the [Tauri Plugin README](../packages/tauri-plugin/README.md) for detailed setup instructions.
-
-## Next Steps
-
-- Read [package-structure.md](./package-structure.md) for package conventions
-- Read [CONTRIBUTING.md](../CONTRIBUTING.md) for contribution guidelines
-- Read [AGENTS.md](../AGENTS.md) for AI assistant context and coding standards
-- Explore the Electron service implementation in `packages/electron-service/`
-- Explore the Tauri service implementation in `packages/tauri-service/`
-- See [Tauri Plugin README](../packages/tauri-plugin/README.md) for Tauri plugin setup
-
-## AI-Assisted Development
-
-This project uses Agent OS for AI-assisted development. The [AGENTS.md](../AGENTS.md) file contains context for AI tools like Claude Code, Cursor, and others.
-
-Available slash commands (Claude Code):
-- `/discover-standards` - Extract patterns from the codebase into documented standards
-- `/inject-standards` - Inject standards into context for consistent AI assistance
-- `/shape-spec` - Enhanced spec shaping with standards awareness
-
-## Getting Help
-
-- **Issues**: Report bugs or request features on [GitHub Issues](https://github.com/webdriverio/desktop-mobile/issues)
-- **Discussions**: Ask questions on [GitHub Discussions](https://github.com/webdriverio/desktop-mobile/discussions)
-- **WebdriverIO**: See [WebdriverIO documentation](https://webdriver.io/)
-
+Make sure the device is unlocked and USB debugging is enabled (Android).
