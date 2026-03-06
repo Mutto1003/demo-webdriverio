@@ -1,15 +1,19 @@
-export default {
-    // Try multiple selectors - will use first one found
-    // skipButton: `~Skip`, // Accessibility ID (simpler and faster)
-    skipButton: `//android.view.View[@content-desc="Skip"]`,
-    // Alternative: `//*[@content-desc="Skip"]`
+import type { I18nStrings } from '../../i18n/index.js';
 
-    // letsStartButton: `~Let's start`,
-    letsStartButton: `//android.widget.Button[@content-desc="Let's start"]`,
+/**
+ * Android locators for the sample/login flow.
+ * Text in XPath is injected from i18n strings so selectors
+ * automatically match the app's current language.
+ */
+export default function sampleLocs(s: I18nStrings) {
+  return {
+    skipButton: `//android.view.View[@content-desc="${s.skipButton}"]`,
 
+    letsStartButton: `//android.widget.Button[@content-desc="${s.letsStartButton}"]`,
+
+    // EditText doesn't depend on language
     mobileNumberInput: `//android.widget.EditText`,
 
-    // continueButton: `~Continue`
-    continueButton: `//android.widget.Button[@content-desc="Continue"]`
+    continueButton: `//android.widget.Button[@content-desc="${s.continueButton}"]`,
+  } as const;
 }
-

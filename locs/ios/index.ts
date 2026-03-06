@@ -1,9 +1,10 @@
-import sample from './sample.locs.js'
+import type { I18nStrings } from '../../i18n/index.js';
+import sampleLocs from './sample.locs.js';
 
-const Locators = {
-  ...sample,
-} as const ;
+export default function iosLocators(s: I18nStrings) {
+  return {
+    ...sampleLocs(s),
+  } as const;
+}
 
-export default Locators;
-export type LocatorKey = keyof typeof Locators;
-
+export type IosLocatorKey = keyof ReturnType<typeof iosLocators>;

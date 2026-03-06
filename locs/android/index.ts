@@ -1,9 +1,13 @@
-import sample from './sample.locs.js'
+import type { I18nStrings } from '../../i18n/index.js';
+import sampleLocs from './sample.locs.js';
+import forgotPasswordLocs from './forgotPassword.locs.js';
 
-const Locators = {
-  ...sample,
-} as const ;
+export default function androidLocators(s: I18nStrings) {
+  return {
+    ...sampleLocs(s),
+    ...forgotPasswordLocs(s),
 
-export default Locators;
-export type LocatorKey = keyof typeof Locators;
+  } as const;
+}
 
+export type AndroidLocatorKey = keyof ReturnType<typeof androidLocators>;

@@ -1,5 +1,6 @@
 import { $ } from "@wdio/globals";
 import { getLocators, type LocatorKey } from "../../locs/index.js";
+import { getStrings, type StringKey } from "../../i18n/index.js";
 
 class SamplePage {
   private async el(key: LocatorKey) {
@@ -28,6 +29,14 @@ class SamplePage {
   async waitForAppToLoad() {
     console.log('[SamplePage] Waiting for app to load...');
     await driver.pause(5000); // Give app time to initialize
+  }
+
+  /**
+   * Get a localised string for the current TEST_LANG.
+   * Useful for assertions: expect(el).toHaveText(SamplePage.getText('continueButton'))
+   */
+  getText(key: StringKey): string {
+    return getStrings()[key];
   }
 
   async login(mobileNumber: string) {

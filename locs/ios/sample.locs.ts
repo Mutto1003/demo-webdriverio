@@ -1,16 +1,19 @@
-export default {
-    // iOS uses XCUITest - different element types
-    skipButton: `~Skip`, // Accessibility ID works on iOS
-    // Alternative: `-ios predicate string:label == "Skip"`
-    // Alternative: `//XCUIElementTypeButton[@name="Skip"]`
+import type { I18nStrings } from '../../i18n/index.js';
 
-    letsStartButton: `~Let's start`,
-    // Alternative: `//XCUIElementTypeButton[@name="Let's start"]`
+/**
+ * iOS locators for the sample/login flow.
+ * Text in Accessibility ID and XPath is injected from i18n strings
+ * so selectors automatically match the app's current language.
+ */
+export default function sampleLocs(s: I18nStrings) {
+  return {
+    skipButton: `~${s.skipButton}`,
 
+    letsStartButton: `~${s.letsStartButton}`,
+
+    // TextField doesn't depend on language
     mobileNumberInput: `//XCUIElementTypeTextField`,
-    // Alternative: `-ios class chain:**/XCUIElementTypeTextField`
 
-    continueButton: `~Continue`
-    // Alternative: `//XCUIElementTypeButton[@name="Continue"]`
+    continueButton: `~${s.continueButton}`,
+  } as const;
 }
-
