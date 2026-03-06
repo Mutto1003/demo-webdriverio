@@ -15,6 +15,7 @@ describe('Sample', () => {
   // }),
 
   it('Sample Test 2', async () => {
-    await SamplePage.login('0995033561');
+    await SamplePage.login('0995033560');
+    await browser.pause(5000);
   })
 })
