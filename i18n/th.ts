@@ -9,8 +9,12 @@ const th: I18nStrings = {
   letsStartButton: 'เริ่มต้นใช้งาน',
   continueButton: 'ดำเนินการต่อ',
 
-  // Login
+  // SignIn
   mobileNumberPlaceholder: 'หมายเลขโทรศัพท์',
+  emailPlaceholder: 'กรอกอีเมลของคุณ',
+
+  // Buttons
+  btnContinue: 'ดำเนินการต่อ',
 
   // OTP
   otpTitle: 'ใส่รหัส OTP',
@@ -21,7 +25,9 @@ const th: I18nStrings = {
   logoutButton: 'ออกจากระบบ',
 
   // Forgot Password
-  forgotPasswordButton: 'ลืมรหัสผ่าน',
+  forgotPasswordButton: 'ลืมรหัสผ่าน?',
+  editEmailInput: '@mail.com',
+
 
   // Errors
   invalidNumber: 'หมายเลขโทรศัพท์ไม่ถูกต้อง',

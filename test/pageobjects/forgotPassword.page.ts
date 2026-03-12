@@ -1,12 +1,17 @@
-import { $ } from "@wdio/globals";
-import { getLocators, LocatorKey } from "../../locs/index.js";
-import { getStrings } from "../../i18n/index.js";
+import BasePage from "./base.page";
 
-class ForgotPasswordPage {
-  private async el(key: LocatorKey) {
-    const locators = await getLocators();
-    return $(locators[key]);
+class ForgotPasswordPage extends BasePage {
+
+  async resetPassword(email: string) {
+    await this.waitForAppToLoad();
+    await this.click('forgotPasswordButton');
+    await this.wait(2000);
+    await this.click('editEmailInput');
+    await this.type('editEmailInput', email);
+    await this.click('continueButton');
+    await this.wait(3000);
   }
+
 }
 
 export default new ForgotPasswordPage();

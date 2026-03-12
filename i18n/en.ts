@@ -9,8 +9,12 @@ const en: I18nStrings = {
   letsStartButton: "Let's start",
   continueButton: 'Continue',
 
-  // Login
+  // SignIn
   mobileNumberPlaceholder: 'Mobile number',
+  emailPlaceholder: 'Enter your email',
+
+  // Buttons
+  btnContinue: 'Continue',
 
   // OTP
   otpTitle: 'Enter OTP',
@@ -21,7 +25,8 @@ const en: I18nStrings = {
   logoutButton: 'Logout',
 
   // Forgot Password
-  forgotPasswordButton: 'Forgot Password',
+  forgotPasswordButton: 'Forgot Password?',
+  editEmailInput: '@mail.com',
 
   // Errors
   invalidNumber: 'Invalid phone number',

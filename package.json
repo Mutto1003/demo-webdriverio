@@ -17,7 +17,7 @@
   "scripts": {
     "wdio": "wdio run ./wdio.conf.ts",
     "wdio:android": "wdio run ./config/wdio.android.conf.ts",
-    "wdio:android:th": "TEST_LANG=th wdio run ./config/wdio.android.conf.ts",
+    "wdio:android:en": "TEST_LANG=EN wdio run ./config/wdio.android.conf.ts",
     "wdio:ios": "wdio run ./config/wdio.ios.conf.ts",
     "wdio:ios:th": "TEST_LANG=th wdio run ./config/wdio.ios.conf.ts"
   }

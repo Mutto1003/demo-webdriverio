@@ -11,8 +11,14 @@ export type I18nStrings = {
   letsStartButton: string;
   continueButton: string;
 
-  // Login / OTP screen
+  // SignIn 
   mobileNumberPlaceholder: string;
+  emailPlaceholder: string;
+
+  // Buttons
+  btnContinue: string;
+
+  // OTP screen
   otpTitle: string;
   resendOtp: string;
 
@@ -22,6 +28,7 @@ export type I18nStrings = {
 
   // Forgot Password
   forgotPasswordButton: string;
+  editEmailInput: string;
 
   // Errors
   invalidNumber: string;

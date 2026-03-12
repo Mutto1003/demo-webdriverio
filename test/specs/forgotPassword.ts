@@ -8,6 +8,6 @@ describe('Forgot Password', () => {
   })
 
   it('TC_WA2572_WRVA_001_Verify Email button is disabled when email field is empty', async () => {
-    await 
+     
   })
 })
