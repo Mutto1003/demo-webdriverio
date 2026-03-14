@@ -14,6 +14,7 @@ const th: I18nStrings = {
   emailPlaceholder: 'กรอกอีเมลของคุณ',
   btnEmailSignIn: 'อีเมล',
   btnSignInToAccount: 'เข้าสู่ระบบ',
+  btnMobileSignIn: 'หมายเลขโทรศัพท์',
 
   // Buttons
   btnContinue: 'ดำเนินการต่อ',

@@ -13,7 +13,7 @@ export const config: Partial<WebdriverIO.Config> = {
     // Specify Test Files
     // ==================
     specs: [
-        '../test/specs/**/forgotPassword.ts'
+        '../test/specs/**/signInMobile.ts'
     ],
     exclude: [
         // 'path/to/excluded/files'

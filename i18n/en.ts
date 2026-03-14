@@ -14,6 +14,7 @@ const en: I18nStrings = {
   emailPlaceholder: 'Enter your email',
   btnEmailSignIn: 'Email',
   btnSignInToAccount: 'Sign in to Account',
+  btnMobileSignIn: 'Phone Number',
 
   // Buttons
   btnContinue: 'Continue',

@@ -16,6 +16,7 @@ export type I18nStrings = {
   emailPlaceholder: string;
   btnEmailSignIn: string;
   btnSignInToAccount: string;
+  btnMobileSignIn: string;
 
   // Buttons
   btnContinue: string;
