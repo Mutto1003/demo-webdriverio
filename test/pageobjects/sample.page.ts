@@ -1,15 +1,17 @@
 import BasePage from "./base.page.js";
+import { getLocators } from "../../locs/index.js";
 
 class SamplePage extends BasePage {
 
   async login(mobileNumber: string) {
     await this.waitForAppToLoad();
-    await this.click('skipButton');
-    await this.click('letsStartButton');
+    const loc = await getLocators();
+    await this.click(loc.skipButton);
+    await this.click(loc.letsStartButton);
     await this.wait(2000);
-    await this.click('mobileNumberInput');
-    await this.type('mobileNumberInput', mobileNumber);
-    await this.click('continueButton');
+    await this.click(loc.mobileNumberInput);
+    await this.type(loc.mobileNumberInput, mobileNumber);
+    await this.click(loc.continueButton);
     await this.wait(3000);
   }
 

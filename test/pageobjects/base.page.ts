@@ -1,26 +1,32 @@
 import { $ } from "@wdio/globals";
-import { getLocators, type LocatorKey } from "../../locs/index.js";
 import { getStrings, type StringKey } from "../../i18n/index.js";
 
 export default class BasePage {
 
-  async el(key: LocatorKey) {
-    const locators = await getLocators();
-    return $(locators[key as keyof typeof locators]);
+  el(selector: string) {
+    return $(selector);
   }
 
-  async click(key: LocatorKey) {
-    const element = await this.el(key);
-    console.log(`[BasePage] Waiting for element: ${key}`);
+  async click(selector: string) {
+    const element = this.el(selector);
+    console.log(`[BasePage] Waiting for element: ${selector}`);
     await element.waitForDisplayed({ timeout: 30000 });
     await element.click();
   }
 
-  async type(key: LocatorKey, value: string) {
-    const element = await this.el(key);
-    console.log(`[BasePage] Typing "${value}" into: ${key}`);
+  async type(selector: string, value: string) {
+    const element = this.el(selector);
+    console.log(`[BasePage] Typing "${value}" into: ${selector}`);
     await element.waitForDisplayed({ timeout: 30000 });
     await element.setValue(value);
+  }
+
+  async isNullOrEmpty(selector: string): Promise<boolean> {
+    const element = this.el(selector);
+    console.log(`[BasePage] Checking if element is null or empty: ${selector}`);
+    await element.waitForDisplayed({ timeout: 30000 });
+    const emailValue = await element.getText();
+    return !emailValue || emailValue.trim().length === 0;
   }
 
   getText(key: StringKey): string {

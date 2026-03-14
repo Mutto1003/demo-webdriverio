@@ -14,6 +14,8 @@ export type I18nStrings = {
   // SignIn 
   mobileNumberPlaceholder: string;
   emailPlaceholder: string;
+  btnEmailSignIn: string;
+  btnSignInToAccount: string;
 
   // Buttons
   btnContinue: string;
@@ -27,7 +29,7 @@ export type I18nStrings = {
   logoutButton: string;
 
   // Forgot Password
-  forgotPasswordButton: string;
+  btnForgotPassword: string;
   editEmailInput: string;
 
   // Errors

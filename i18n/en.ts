@@ -12,6 +12,8 @@ const en: I18nStrings = {
   // SignIn
   mobileNumberPlaceholder: 'Mobile number',
   emailPlaceholder: 'Enter your email',
+  btnEmailSignIn: 'Email',
+  btnSignInToAccount: 'Sign in to Account',
 
   // Buttons
   btnContinue: 'Continue',
@@ -25,7 +27,7 @@ const en: I18nStrings = {
   logoutButton: 'Logout',
 
   // Forgot Password
-  forgotPasswordButton: 'Forgot Password?',
+  btnForgotPassword: 'Forget Password?',
   editEmailInput: '@mail.com',
 
   // Errors

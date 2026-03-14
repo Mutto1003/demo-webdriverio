@@ -12,6 +12,8 @@ const th: I18nStrings = {
   // SignIn
   mobileNumberPlaceholder: 'หมายเลขโทรศัพท์',
   emailPlaceholder: 'กรอกอีเมลของคุณ',
+  btnEmailSignIn: 'อีเมล',
+  btnSignInToAccount: 'เข้าสู่ระบบ',
 
   // Buttons
   btnContinue: 'ดำเนินการต่อ',
@@ -25,7 +27,7 @@ const th: I18nStrings = {
   logoutButton: 'ออกจากระบบ',
 
   // Forgot Password
-  forgotPasswordButton: 'ลืมรหัสผ่าน?',
+  btnForgotPassword: 'ลืมรหัสผ่าน?',
   editEmailInput: '@mail.com',
 
 

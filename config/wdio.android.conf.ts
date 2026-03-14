@@ -27,7 +27,7 @@ export const config: WebdriverIO.Config = deepmerge(sharedConfig as WebdriverIO.
     // Specs - Android specific tests (optional)
     //
     specs: [
-        '../test/specs/**/sample.ts'
+        '../test/specs/**/forgotPassword.ts'
     ],
 
     // Exclude web tests

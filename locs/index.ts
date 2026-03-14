@@ -39,3 +39,4 @@ export async function getLocators() {
 
 // Derive LocatorKey from the shape returned by the factory (Android as reference)
 export type LocatorKey = keyof ReturnType<typeof androidLocators>;
+export type AndroidLocators = ReturnType<typeof androidLocators>;
